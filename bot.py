@@ -172,15 +172,13 @@ def on_message(
         else:
             bot.send_message(channel, "Usage: !weather Istanbul")
     for message_part in message.split():
-        if message_part.startswith("!pickquote") and quotebot == 1:
+        if message.lower() == '!pickquote' and quotebot == 1:
             print('Got !pickquote command')
-            numq = message.lower()
-            numq = numq[10:]
-            print('Picking from ' + str(numq))
             quotelist = open('quotes.csv', 'r')
             print('Getting quotes')
             quotes = quotelist.read()
             quotes = quotes.split(',')
+            numq = len(quotes)
             print('Read quotes')
             numq = int(numq)-1
             picked = random.randint(0,int(numq))
