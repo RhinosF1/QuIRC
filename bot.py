@@ -112,14 +112,13 @@ def on_message(bot, channel, sender, message):
             bot.send_message(channel, greeting_message)
             print('Sent greeting')
         lastgreeter = sender
-    for message_part in message.split():
-          if message_part.startswith('!opme') and sender in admins:
+        if message_part.startswith('!opme') and sender in admins:
 	          bot.send_line('MODE ' + channel + ' +o ' + sendernick)
 
-          if message_part().startswith('!deopme') and sender in admins:
+        if message_part().startswith('!deopme') and sender in admins:
 	          bot.send_line('MODE ' + channel + ' -o ' + sendernick)
 
-          if message_part().startswith('!kick') and sender in admins:
+        if message_part().startswith('!kick') and sender in admins:
 	          arg = message.split(' ')
 	          target = arg[1]
 	          bot.send_line('KICK ' + channel + ' ' + target)
