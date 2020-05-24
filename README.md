@@ -11,4 +11,4 @@ QuIRC is
   line of socket code.
 * Includes logging and terminal output plus built in weather bots, greetings bots, ping pong bots and URL title bots
 
-[![Visit our IRC channel](https://kiwiirc.com/buttons/chat.freenode.net/#quirc.png)](https://kiwiirc.com/client/chat.freenode.net/?nick=quirc?##quirc) to talk to users and developers or email quircbot@gmail.com
+[![Visit our IRC channel](https://kiwiirc.com/buttons/chat.freenode.net/#quirc.png)](https://kiwiirc.com/client/chat.freenode.net/?nick=quirc?#quirc) to talk to users and developers or email quircbot@gmail.com
