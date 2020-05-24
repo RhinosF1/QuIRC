@@ -6,6 +6,8 @@ import time
 import random
 topic = '' #channel topic for use in channels where quotebot runs
 nick = 'quirctest123'
+username = 'quirc'
+realname = 'realname'
 bot = QuIRC.IRCConnection()
 lastgreeter = ''
 greetings = [
@@ -17,8 +19,6 @@ greetings = [
 ]
 owapikey = '' #place an api key for open weather map here
 admins = ['freenode-staff', 'freenode-staff']
-username = 'quirc'
-realname = 'realname'
 ##FUNCTION FLAGS - SET TO 1 TO ENABLE
 greetingsbot = 1
 weatherbot = 0
@@ -33,6 +33,8 @@ def getinfo():
     print('loadingconfig')
     global topic
     global nick
+    global username
+    global realname
     global greetings
     global greetingsbot
     global weatherbot
@@ -52,6 +54,10 @@ def getinfo():
             topic = setting[1]
         if setting[0] == 'nick':
             nick = setting[1]
+        if setting[0] == 'username':
+           username = setting[1]
+        if setting[0] == 'realname':
+           realname = setting[1]
         if setting[0] == 'greetings':
             greetings = setting[1].split(',')
         if setting[0] == 'greetingsbot':
@@ -78,7 +84,7 @@ def getinfo():
 
 def on_connect(bot):
     bot.set_nick(nick)
-    bot.send_user_packet(nick)
+    bot.send_user_packet(nick,realname)
 
 def on_welcome(bot):
     global nspassword
