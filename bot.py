@@ -15,11 +15,12 @@ greetings = [
     "Hi {}!",
     "Hello there {}!",
     "Hi there {}!",
-    "Hey {}!"
-]
+    "Hey {}!"]
 owapikey = '' #place an api key for open weather map here
 admins = ['freenode-staff', 'freenode-staff']
+
 ##FUNCTION FLAGS - SET TO 1 TO ENABLE
+
 greetingsbot = 1
 weatherbot = 0
 linkbot = 1
@@ -28,6 +29,7 @@ pingbot = 1
 buttbot = 0
 cashortbot = 1
 nspassword = ''
+
 
 def getinfo():
     print('loadingconfig')
@@ -93,7 +95,13 @@ def on_welcome(bot):
     time.sleep(10)
     bot.join_channel('#channel')
     print('Joined channels')
-def on_message(bot, channel, sender, message):
+    
+def on_message(
+    bot, 
+    channel, 
+    sender, 
+    message
+    ):
     global topic
     global nick
     global lastgreeter
@@ -107,28 +115,30 @@ def on_message(bot, channel, sender, message):
     global cashortbot
     global admins 
     global owapikey
+    sendernick = sender.split('!')[0]
+    senderhost = sender.split('@')[1]
     if "hi " in message.lower() and greetingsbot == 1 or "hello " in message.lower() and greetingsbot == 1:
         global lastgreeter
         if lastgreeter == sender:
             print('Greetingsbot failed as sender was same as last greeter')
         else:
             print('got greeting message')
-            greeting_message = random.choice(greetings).format(sender)
+            greeting_message = random.choice(greetings).format(sendernick)
             print('picked greeting: ' + greeting_message)
             bot.send_message(channel, greeting_message)
             print('Sent greeting')
         lastgreeter = sender
-        if message_part.startswith('!opme') and sender in admins:
+    if message.lower().startswith('!opme') and sendernick in admins:
 	          bot.send_line('MODE ' + channel + ' +o ' + sendernick)
 
-        if message_part().startswith('!deopme') and sender in admins:
+    if message.lower().startswith('!deopme') and sendernick in admins:
 	          bot.send_line('MODE ' + channel + ' -o ' + sendernick)
 
-        if message_part().startswith('!kick') and sender in admins:
+    if message.lower().startswith('!kick') and sendernick in admins:
 	          arg = message.split(' ')
 	          target = arg[1]
 	          bot.send_line('KICK ' + channel + ' ' + target)
-        if message_part.startswith("http://") and linkbot == 1 or message_part.startswith("https://") and linkbot == 1:
+    if message.lower().startswith("http://") and linkbot == 1 or message.lower().startswith("https://") and linkbot == 1:
             print('Found link')
             html = requests.get(message_part).text
             title_match = re.search("<title>(.*?)</title>", html)
