@@ -95,11 +95,11 @@ def on_welcome(bot):
     time.sleep(10)
     bot.join_channel('#channel')
     print('Joined channels')
-    
+
 def on_message(
-    bot, 
-    channel, 
-    sender, 
+    bot,
+    channel,
+    sender,
     message
     ):
     global topic
@@ -113,7 +113,7 @@ def on_message(
     global pingbot
     global buttbot
     global cashortbot
-    global admins 
+    global admins
     global owapikey
     sendernick = sender.split('!')[0]
     senderhost = sender.split('@')[1]
@@ -254,7 +254,7 @@ def on_pm(bot, sender, message):
     global pingbot
     global buttbot
     global cashortbot
-    global admins 
+    global admins
     global owapikey
     print('Got PM')
     if message.lower() == 'ping' and pingbot == 1:
