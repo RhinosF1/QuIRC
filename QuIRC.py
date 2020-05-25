@@ -173,7 +173,7 @@ class IRCConnection:
         ts = time.time()
         st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
         print('Got timestamp')
-        logline = '\n [' + to + '] @ ' + st +' -' + botnick + ' : ' + message
+        logline = '\n [' + str(to) + '] @ ' + str(st) +' -' + str(botnick) + ' : ' + str(message)
         logline = str(logline)
         logfile.write(logline)
         print('Logged message')
