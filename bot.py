@@ -146,10 +146,8 @@ def on_message(
             if title_match:
                 print(title_match.group(1))
                 title = title_match.group(1)
-                title = title.encode("ascii", "replace")
                 print(title)
                 message = "Title of the URL by {}: {}".format(sender, title)
-                message = message.encode("ascii", "replace")
                 print(message)
                 bot.send_message(channel, message)
                 print('Sent title')
