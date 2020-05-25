@@ -86,7 +86,7 @@ class IRCConnection:
                     print(logline)
                     logfile.close()
                     print('Closed logs file')
-                    event_handler(self, packet.arguments[0], packet.prefix.split("!")[0], packet.arguments[1])
+                    event_handler(self, packet.arguments[0], packet.prefix, packet.arguments[1])
             else:
                 for event_handler in list(self.on_private_message):
                     print('Found Private message')
