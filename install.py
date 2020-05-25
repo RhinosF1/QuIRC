@@ -25,6 +25,8 @@ print('This will create your settings file for you')
 print('----')
 nick = input('What is your bot nick? ')
 nspassword = input('What is the bot\'s NickServ Password? ')
+username = input('What is your bot user name? ')
+realname = input('What is your bot real name? ')
 topic = input('What is the topic in the channel the bot runs in? ')
 print('For each gretting please add a {} where the nick of the sender should go')
 print('After each greeting, place a comma to seperate them')
@@ -45,8 +47,10 @@ admins = input('Who are the bots admins (they get access to functions which eith
 print('Your settings file will now be created')
 file = open('settings.csv', 'w+')
 content = ''
-content = 'nick;'+str(nick)+',\n'
+content = 'nick;'+str(nick)+';\n'
 content = str(content)+'nspassword;'+str(nspassword)+';\n'
+content = str(content)+'username;'+str(username)+';\n'
+content = str(content)+'realname;'+str(realname)+';\n'
 content = str(content)+'topic;'+str(topic)+';\n'
 content = str(content)+'greetings;'+str(greetings)+';\n'
 content = str(content)+'greetingsbot;'+str(greetingsbot)+';\n'

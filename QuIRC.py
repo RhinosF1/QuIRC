@@ -86,7 +86,7 @@ class IRCConnection:
                     print(logline)
                     logfile.close()
                     print('Closed logs file')
-                    event_handler(self, packet.arguments[0], packet.prefix.split("!")[0], packet.arguments[1])
+                    event_handler(self, packet.arguments[0], packet.prefix, packet.arguments[1])
             else:
                 for event_handler in list(self.on_private_message):
                     print('Found Private message')
@@ -173,7 +173,7 @@ class IRCConnection:
         ts = time.time()
         st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
         print('Got timestamp')
-        logline = '\n [' + to + '] @ ' + st +' -' + botnick + ' : ' + message
+        logline = '\n [' + str(to) + '] @ ' + str(st) +' -' + str(botnick) + ' : ' + str(message)
         logline = str(logline)
         logfile.write(logline)
         print('Logged message')
@@ -294,10 +294,10 @@ class IRCConnection:
         self.nick = nick
         self.send_line("NICK {}".format(nick))
 
-    def send_user_packet(self, username):
+    def send_user_packet(self, username, realname):
         #Sends a user packet. This should be sent after your nickname. It is
         #displayed on clients when they view your details and look at "Real
         #Name".
 
 
-        self.send_line("USER {} 0 * :{}".format(username, username))
+        self.send_line("USER {} 0 * :{}".format(username, realname))

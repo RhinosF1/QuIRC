@@ -6,6 +6,8 @@ import time
 import random
 topic = '' #channel topic for use in channels where quotebot runs
 nick = 'quirctest123'
+username = 'quirc'
+realname = 'realname'
 bot = QuIRC.IRCConnection()
 lastgreeter = ''
 greetings = [
@@ -13,11 +15,12 @@ greetings = [
     "Hi {}!",
     "Hello there {}!",
     "Hi there {}!",
-    "Hey {}!"
-]
+    "Hey {}!"]
 owapikey = '' #place an api key for open weather map here
 admins = ['freenode-staff', 'freenode-staff']
+
 ##FUNCTION FLAGS - SET TO 1 TO ENABLE
+
 greetingsbot = 1
 weatherbot = 0
 linkbot = 1
@@ -27,10 +30,13 @@ buttbot = 0
 cashortbot = 1
 nspassword = ''
 
+
 def getinfo():
     print('loadingconfig')
     global topic
     global nick
+    global username
+    global realname
     global greetings
     global greetingsbot
     global weatherbot
@@ -50,6 +56,10 @@ def getinfo():
             topic = setting[1]
         if setting[0] == 'nick':
             nick = setting[1]
+        if setting[0] == 'username':
+           username = setting[1]
+        if setting[0] == 'realname':
+           realname = setting[1]
         if setting[0] == 'greetings':
             greetings = setting[1].split(',')
         if setting[0] == 'greetingsbot':
@@ -76,7 +86,7 @@ def getinfo():
 
 def on_connect(bot):
     bot.set_nick(nick)
-    bot.send_user_packet(nick)
+    bot.send_user_packet(nick,realname)
 
 def on_welcome(bot):
     global nspassword
@@ -85,7 +95,13 @@ def on_welcome(bot):
     time.sleep(10)
     bot.join_channel('#channel')
     print('Joined channels')
-def on_message(bot, channel, sender, message):
+    
+def on_message(
+    bot, 
+    channel, 
+    sender, 
+    message
+    ):
     global topic
     global nick
     global lastgreeter
@@ -99,29 +115,30 @@ def on_message(bot, channel, sender, message):
     global cashortbot
     global admins 
     global owapikey
+    sendernick = sender.split('!')[0]
+    senderhost = sender.split('@')[1]
     if "hi " in message.lower() and greetingsbot == 1 or "hello " in message.lower() and greetingsbot == 1:
         global lastgreeter
         if lastgreeter == sender:
             print('Greetingsbot failed as sender was same as last greeter')
         else:
             print('got greeting message')
-            greeting_message = random.choice(greetings).format(sender)
+            greeting_message = random.choice(greetings).format(sendernick)
             print('picked greeting: ' + greeting_message)
             bot.send_message(channel, greeting_message)
             print('Sent greeting')
         lastgreeter = sender
-    for message_part in message.split():
-          if message_part.startswith('!opme') and senderhost in chanops:
+    if message.lower().startswith('!opme') and sendernick in admins:
 	          bot.send_line('MODE ' + channel + ' +o ' + sendernick)
 
-          if message_part().startswith('!deopme') and senderhost in chanops:
+    if message.lower().startswith('!deopme') and sendernick in admins:
 	          bot.send_line('MODE ' + channel + ' -o ' + sendernick)
 
-          if message_part().startswith('!kick') and senderhost in chanops:
+    if message.lower().startswith('!kick') and sendernick in admins:
 	          arg = message.split(' ')
 	          target = arg[1]
 	          bot.send_line('KICK ' + channel + ' ' + target)
-        if message_part.startswith("http://") and linkbot == 1 or message_part.startswith("https://") and linkbot == 1:
+    if message.lower().startswith("http://") and linkbot == 1 or message.lower().startswith("https://") and linkbot == 1:
             print('Found link')
             html = requests.get(message_part).text
             title_match = re.search("<title>(.*?)</title>", html)
@@ -129,10 +146,8 @@ def on_message(bot, channel, sender, message):
             if title_match:
                 print(title_match.group(1))
                 title = title_match.group(1)
-                title = title.encode("ascii", "replace")
                 print(title)
                 message = "Title of the URL by {}: {}".format(sender, title)
-                message = message.encode("ascii", "replace")
                 print(message)
                 bot.send_message(channel, message)
                 print('Sent title')
@@ -155,15 +170,13 @@ def on_message(bot, channel, sender, message):
         else:
             bot.send_message(channel, "Usage: !weather Istanbul")
     for message_part in message.split():
-        if message_part.startswith("!pickquote") and quotebot == 1:
+        if message.lower() == '!pickquote' and quotebot == 1:
             print('Got !pickquote command')
-            numq = message.lower()
-            numq = numq[10:]
-            print('Picking from ' + str(numq))
             quotelist = open('quotes.csv', 'r')
             print('Getting quotes')
             quotes = quotelist.read()
             quotes = quotes.split(',')
+            numq = len(quotes)
             print('Read quotes')
             numq = int(numq)-1
             picked = random.randint(0,int(numq))
