@@ -1,6 +1,6 @@
 nick;quirctest123;
-username;quirc
-realname;realname
+username;quirc;
+realname;realname;
 nspassword;password;
 topic;channeltopics;
 greetings;hello {}!,Hi {}!,Hello there {}!, Hi there {}!,Hey {};
