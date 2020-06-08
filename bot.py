@@ -42,8 +42,8 @@ def getinfo():
     global greetingsbot
     global weatherbot
     global units
-    global quotebot
     global linkbot
+    global quotebot
     global pingbot
     global buttbot
     global cashortbot
@@ -72,10 +72,10 @@ def getinfo():
             owapikey = setting[1]
         if setting[0] == 'units':
             units = setting[1]
-        if setting[0] == 'quotebot':
-            quotebot = int(setting[1])
         if setting[0] == 'linkbot':
-            linkbot = setting[1]
+            linkbot = int(setting[1])
+        if setting[0] == 'quotebot':
+            quotebot = setting[1]
         if setting[0] == 'pingbot':
             pingbot = int(setting[1])
         if setting[0] == 'buttbot':
@@ -144,14 +144,14 @@ def on_message(
 	          bot.send_line('KICK ' + channel + ' ' + target)
     if message.lower().startswith("http://") and linkbot == 1 or message.lower().startswith("https://") and linkbot == 1:
             print('Found link')
-            html = requests.get(message_part).text
+            html = requests.get(message.lower()).text
             title_match = re.search("<title>(.*?)</title>", html)
             print('Finding a title')
             if title_match:
                 print(title_match.group(1))
                 title = title_match.group(1)
                 print(title)
-                message = "Title of the URL by {}: {}".format(sender, title)
+                message = "Title of the URL by {}: {}".format(sendernick, title)
                 print(message)
                 bot.send_message(channel, message)
                 print('Sent title')
