@@ -12,4 +12,4 @@ currently being supported with security updates.
 
 ## Reporting a Vulnerability
 
-In the event of a security issue, email quircbot@gmail.com with the information or contact RhinosF1 or Examknow on the Freenode IRC network.
+In the event of a security issue, email quircbot@gmail.com with the information or contact Sario528 or quirc|ping on the Freenode IRC network.
