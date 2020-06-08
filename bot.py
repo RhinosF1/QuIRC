@@ -23,6 +23,7 @@ admins = ['freenode-staff', 'freenode-staff']
 
 greetingsbot = 1
 weatherbot = 0
+units = '' #imperal or metric units for weaterbot output
 linkbot = 1
 quotebot = 1
 pingbot = 1
@@ -40,6 +41,7 @@ def getinfo():
     global greetings
     global greetingsbot
     global weatherbot
+    global units
     global quotebot
     global linkbot
     global pingbot
@@ -68,6 +70,8 @@ def getinfo():
             weatherbot = int(setting[1])
         if setting[0] == 'owapikey':
             owapikey = setting[1]
+        if setting[0] == 'units':
+            units = setting[1]
         if setting[0] == 'quotebot':
             quotebot = int(setting[1])
         if setting[0] == 'linkbot':
@@ -157,11 +161,10 @@ def on_message(
             location = message.lower()
             location = location[9:]
             print('Detected location: ' + location)
-            weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+location+"&APPID="+owapikey+ "&units=metric").json()
+            weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+location+"&APPID="+owapikey+ "&units="+units).json()
             if weather_data["cod"] == 200:
                 print('Got 200 response from API')
                 message = "The weather in {} is {} and {} degrees.".format(weather_data["name"], weather_data["weather"][0]["description"], weather_data["main"]["temp"])
-                message = message.encode("ascii", "replace")
                 bot.send_message(channel, message)
                 print('Sent weather to channel')
             else:
