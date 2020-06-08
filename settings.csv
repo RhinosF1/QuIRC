@@ -7,6 +7,7 @@ greetings;hello {}!,Hi {}!,Hello there {}!, Hi there {}!,Hey {};
 greetingsbot;1;
 weatherbot;0;
 owapikey;;
+units;metric;
 quotebot;1;
 linkbot;1;
 pingbot;1;
