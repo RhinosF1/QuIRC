@@ -13,6 +13,7 @@ owapikey = ''
 admins = ['freenode-staff', 'freenode-staff']
 greetingsbot = 1
 weatherbot = 0
+units = metric
 linkbot = 1
 quotebot = 1
 pingbot = 1
@@ -36,6 +37,7 @@ weatherbot = input('Should the weatherbot module be enabled? [1 for yes, 0 for n
 if weatherbot.isdigit() == True:
   if weatherbot == 1:
     owapikey = input('What is your open weather map api key? ')
+units = input('Which temperature scale should the weatherboy module use? [metric or imperial] ')
 linkbot = input('Should the linkbot module be enabled? [1 for yes, 0 for no] ')
 quotebot = input('Should the quotebot module be enabled? [1 for, 0 for no] ')
 if quotebot.isdigit() == True:
@@ -57,6 +59,7 @@ content = str(content)+'greetings;'+str(greetings)+';\n'
 content = str(content)+'greetingsbot;'+str(greetingsbot)+';\n'
 content = str(content)+'weatherbot;'+str(weatherbot)+';\n'
 content = str(content)+'owapikey;'+str(owapikey)+';\n'
+content = str(content)+'units;'+str(units)+';\n'
 content = str(content)+'linkbot;'+str(linkbot)+';\n'
 content = str(content)+'quotebot;'+str(quotebot)+';\n'
 content = str(content)+'pingbot;'+str(pingbot)+';\n'
