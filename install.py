@@ -36,6 +36,7 @@ weatherbot = input('Should the weatherbot module be enabled? ')
 if weatherbot.isdigit() == True:
   if weatherbot == 1:
     owapikey = input('What is your open weather map api key? ')
+linkbot = input('Should the linkbot module be enabled? [1 for yes, 0 for no]')
 quotebot = input('Should the quotebot module be enabled? ')
 if quotebot.isdigit() == True:
   if quotebot == 1:
@@ -56,6 +57,7 @@ content = str(content)+'greetings;'+str(greetings)+';\n'
 content = str(content)+'greetingsbot;'+str(greetingsbot)+';\n'
 content = str(content)+'weatherbot;'+str(weatherbot)+';\n'
 content = str(content)+'owapikey;'+str(owapikey)+';\n'
+content = str(content)+'linkbot;'+str(linkbot)+';\n'
 content = str(content)+'quotebot;'+str(quotebot)+';\n'
 content = str(content)+'pingbot;'+str(pingbot)+';\n'
 content = str(content)+'buttbot;'+str(buttbot)+';\n'
