@@ -1,8 +1,8 @@
 ####DEFAULTS###
 topic = ''
 nick = 'quirctest123'
-username = quirc
-realname = quirc
+username = 'quirc'
+realname = 'quirc'
 lastgreeter = ''
 greetings = [
     "Hello {}!",
