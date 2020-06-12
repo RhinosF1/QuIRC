@@ -1,4 +1,4 @@
-print('QuIRC Setup Modifcation tool. Use !getinfo on IRC after running this to update the bots cache')
+print('QuIRC Setup Modifcation tool. Use !getinfo on IRC after running this to update the bot\'s cache')
 ####DEFAULTS###
 topic = '' #channel topic for use in channels where quotebot runs
 nick = 'quirctest123'
