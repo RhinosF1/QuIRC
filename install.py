@@ -1,6 +1,8 @@
 ####DEFAULTS###
 topic = ''
 nick = 'quirctest123'
+username = 'quirc'
+realname = 'quirc'
 lastgreeter = ''
 greetings = [
     "Hello {}!",
@@ -13,6 +15,7 @@ owapikey = ''
 admins = ['freenode-staff', 'freenode-staff']
 greetingsbot = 1
 weatherbot = 0
+units = 'metric'
 linkbot = 1
 quotebot = 1
 pingbot = 1
@@ -31,18 +34,20 @@ topic = input('What is the topic in the channel the bot runs in? ')
 print('For each gretting please add a {} where the nick of the sender should go')
 print('After each greeting, place a comma to seperate them')
 greetings = input('What greetings should be used? ')
-greetingsbot = input('Should the greetingsbot module be enabled? ' )
-weatherbot = input('Should the weatherbot module be enabled? ')
+greetingsbot = input('Should the greetingsbot module be enabled? [1 for yes, 0 for no] ')
+weatherbot = input('Should the weatherbot module be enabled? [1 for yes, 0 for no] ')
 if weatherbot.isdigit() == True:
   if weatherbot == 1:
     owapikey = input('What is your open weather map api key? ')
-quotebot = input('Should the quotebot module be enabled? ')
+units = input('Which temperature scale should the weatherboy module use? [metric or imperial] ')
+linkbot = input('Should the linkbot module be enabled? [1 for yes, 0 for no] ')
+quotebot = input('Should the quotebot module be enabled? [1 for, 0 for no] ')
 if quotebot.isdigit() == True:
   if quotebot == 1:
    print('Please gets your quotes ready, you should seperate quotes with a comma and place them in quoutes.csv')
-pingbot = input('Should the pingbot module be enabled? (PM ONLY) ')
-buttbot = input ('Should the buttbot module be enabled? ')
-cashortbot = input('Should the central auth short links bot module be enabled? ')
+pingbot = input('Should the pingbot module be enabled? (PM ONLY) [1 for yes, 0 for no l] ')
+buttbot = input ('Should the buttbot module be enabled? [1 for yes, 0 for no] ')
+cashortbot = input('Should the central auth short links bot module be enabled? [1 for yes, 0 for no] ')
 admins = input('Who are the bots admins (they get access to functions which either require them to be present at the computer running the bot or that have the power to bring the botdown)? -- seperate with a comma ')
 print('Your settings file will now be created')
 file = open('settings.csv', 'w+')
@@ -56,6 +61,8 @@ content = str(content)+'greetings;'+str(greetings)+';\n'
 content = str(content)+'greetingsbot;'+str(greetingsbot)+';\n'
 content = str(content)+'weatherbot;'+str(weatherbot)+';\n'
 content = str(content)+'owapikey;'+str(owapikey)+';\n'
+content = str(content)+'units;'+str(units)+';\n'
+content = str(content)+'linkbot;'+str(linkbot)+';\n'
 content = str(content)+'quotebot;'+str(quotebot)+';\n'
 content = str(content)+'pingbot;'+str(pingbot)+';\n'
 content = str(content)+'buttbot;'+str(buttbot)+';\n'
