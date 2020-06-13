@@ -1,4 +1,4 @@
-print('QuIRC Setup Modifcation tool. Use !getinfo on IRC after running this to update the bots cache')
+print('QuIRC Setup Modifcation tool. Use !getinfo on IRC after running this to update the bot\'s cache')
 ####DEFAULTS###
 topic = '' #channel topic for use in channels where quotebot runs
 nick = 'quirctest123'
@@ -24,7 +24,7 @@ nspassword = ''
 print('Downloading your current settings...')
 ###GETSETTINGS###
 infofile = ('settings.csv', 'r')
-    for line in infofile:
+for line in infofile:
         setting = line.split(';')
         if setting[0] == 'topic':
             topic = setting[1]
@@ -55,7 +55,7 @@ infofile = ('settings.csv', 'r')
             nspassword = setting[1]
 print('Starting tool....')
 run = 1
-while run = 1:
+while run == 1:
     print('----')
     print('1.nick')
     print('2.NickServ Password')
@@ -70,37 +70,37 @@ while run = 1:
     print('11.cashortbot')
     print('12.admins')
     settoupdate = input('Which setting would you like to update?')
-    if settoupdate = 1:
+    if settoupdate == 1:
         nick = input('What is your bot nick? ')
-    if settoupdate = 2:
+    if settoupdate == 2:
         nspassword = input('What is the bot\'s NickServ Password? ')
-    if settoupdate = 3:
+    if settoupdate == 3:
         topic = input('What is the topic in the channel the bot runs in? ')
-    if settoupdate = 4:
+    if settoupdate == 4:
         print('For each gretting please add a {} where the nick of the sender should go')
         print('After each greeting, place a comma to seperate them')
         greetings = input('What greetings should be used? ')
-    if settoupdate = 5:
+    if settoupdate == 5:
         greetingsbot = input('Should the greetingsbot module be enabled?' )
-    if settoupdate = 6:
+    if settoupdate == 6:
         weatherbot = input('Should the weatherbot module be enabled? ')
-    if settoupdate = 7:
+    if settoupdate == 7:
         owapikey = input('What is your open weather map api key? ')
-    if settoupdate = 8:
+    if settoupdate == 8:
         quotebot = input('Should the quotebot module be enabled? ')
-        if quotebot.isnum() = True:
+        if quotebot.isnum() == True:
             if quotebot == 1:
                 print('Please gets your quotes ready, you should seperate quotes with a comma and place them in quoutes.csv ')
-    if settoupdate = 9:
+    if settoupdate == 9:
         pingbot = input('Should the pingbot module be enabled? (PM ONLY) ')
-    if settoupdate = 10:
+    if settoupdate == 10:
         buttbot = input ('Should the buttbot module be enabled? ')
-    if settoupdate = 11:
+    if settoupdate == 11:
         cashortbot = input('Should the central auth short links bot module be enabled? ')
-    if settoupdate = 12:
+    if settoupdate == 12:
         admins = input('Who are the bots admins (they get access to functions which either require them to be present at the computer running the bot or that have the power to bring the botdown)? -- seperate with a comma ')
     another = input('Would you like to update anything else? y/n ').lower()
-    if another = 'n':
+    if another == 'n':
         run = 0
 print('Your settings file will now be updated')
 file = open('settings.csv', 'w+')
