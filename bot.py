@@ -168,7 +168,7 @@ def on_message(
                 bot.send_message(channel, message)
                 print('Sent weather to channel')
             else:
-                bot.send_message(channel, sender + ': API Fault')
+                bot.send_message(channel, sendernick + ': API Fault')
                 print('API fault on !weather')
         else:
             bot.send_message(channel, "Usage: !weather Istanbul")
