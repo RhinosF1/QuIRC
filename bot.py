@@ -212,9 +212,9 @@ def on_message(
                     newmess = newmess + ' ' + message1[on]
                 on = on + 1
             bot.send_message(channel, newmess)
-    if message.lower() == '!getinfo' and sender in admins:
+    if message.lower() == '!getinfo' and sendernick in admins:
         bot.set_nick(nick + '-down')
-        bot.send_message(sender, 'Rebuilding')
+        bot.send_message(sendernick, 'Rebuilding')
         topic = ''
         nick = ''
         lastgreeter = ''
@@ -232,20 +232,24 @@ def on_message(
         time.sleep(1)
         getinfo()
         time.sleep(1)
-        bot.send_message(sender, 'Rebuilt')
+        bot.send_message(sendernick, 'Rebuilt')
         bot.set_nick(nick)
     if message.lower().startswith('!wmca') and cashortbot == 1:
         user = message.split(' ')
         user = user[1]
-        bot.send_message(channel, sender + ': https://meta.wikimedia.org/wiki/Special:CentralAuth/' + user)
+        bot.send_message(channel, sendernick + ': https://meta.wikimedia.org/wiki/Special:CentralAuth/' + user)
     if message.lower().startswith('!mhca') and cashortbot == 1:
         user = message.split(' ')
         user = user[1]
-        bot.send_message(channel, sender + ': https://meta.miraheze.org/wiki/Special:CentralAuth/' + user)
+        bot.send_message(channel, sendernick + ': https://meta.miraheze.org/wiki/Special:CentralAuth/' + user)
 
 
 
-def on_pm(bot, sender, message):
+def on_pm(
+    bot,
+    sender,
+    message
+    ):
     global topic
     global nick
     global lastgreeter
@@ -260,7 +264,7 @@ def on_pm(bot, sender, message):
     global admins
     global owapikey
     print('Got PM')
-    if message.lower() == 'ping' and pingbot == 1:
+    if message.lower() == 'ping' and pingbot == 1 or message.lower() == '!ping' and pingbot == 1:
         print('Got ping message over PM')
         bot.send_message(sender, 'PONG')
         print('PONGed user back')
@@ -272,7 +276,7 @@ def on_pm(bot, sender, message):
         bot.send_message(sender, greeting_message)
         print('Sent greeting')
     for message_part in message.split():
-        if message_part.startswith("http://") and linkbot == 1 or message_part.startswith("https://") and linkbot == 1:
+        if message.lower().startswith("http://") and linkbot == 1 or message.lower().startswith("https://") and linkbot == 1:
             print('Found link')
             html = requests.get(message_part).text
             title_match = re.search("<title>(.*?)</title>", html)
@@ -280,24 +284,21 @@ def on_pm(bot, sender, message):
             if title_match:
                 print(title_match.group(1))
                 title = title_match.group(1)
-                title = title.encode("ascii", "replace")
                 print(title)
                 message = "Title of the URL by {}: {}".format(sender, title)
-                message = message.encode("ascii", "replace")
                 print(message)
                 bot.send_message(sender, message)
                 print('Sent title')
-    if message.split()[0] == "weather" and weatherbot == 1:
+    if message.split()[0] == "weather" and weatherbot == 1 or message.split()[0] == "!weather" and weatherbot == 1:
         print('Seen weather ping')
         if len(message.split()) > 1:
             location = message.lower()
             location = location[8:]
             print('Detected location: ' + location)
-            weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+location+"&APPID="+owapikey+ "&units=metric").json()
+            weather_data = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+location+"&APPID="+owapikey+ "&units="+units).json()
             if weather_data["cod"] == 200:
                 print('Got 200 response from API')
                 message = "The weather in {} is {} and {} degrees.".format(weather_data["name"], weather_data["weather"][0]["description"], weather_data["main"]["temp"])
-                message = message.encode("ascii", "replace")
                 bot.send_message(sender, message)
                 print('Sent weather to channel')
             else:
@@ -305,6 +306,22 @@ def on_pm(bot, sender, message):
                 print('API fault on weather')
         else:
             bot.send_message(sender, "Usage: weather Istanbul")
+    for message_part in message.split():
+        if message.lower() == 'pickquote' and quotebot == 1 or message.lower() == '!pickquote' and quotebot == 1:
+            print('Got !pickquote command')
+            quotelist = open('quotes.csv', 'r')
+            print('Getting quotes')
+            quotes = quotelist.read()
+            quotes = quotes.split(',')
+            numq = len(quotes)
+            print('Read quotes')
+            numq = int(numq)-1
+            picked = random.randint(0,int(numq))
+            print('Picked ' + str(picked))
+            pq = quotes[picked]
+            print('Which is: ' + pq)
+            bot.send_message(sender, 'Your quote is: ' + str(pq))
+            print('Announced it')
     if buttbot == 1:
         message1 = message.lower()
         message1 = message.split(' ')
@@ -328,7 +345,7 @@ def on_pm(bot, sender, message):
                     newmess = newmess + ' ' + message1[on]
                 on = on + 1
             bot.send_message(sender, newmess)
-    if message.lower() == 'getinfo' and sender in admins:
+    if message.lower() == 'getinfo' and sender in admins or message.lower() =="!getinfo" and sender in admins:
         bot.set_nick(nick + '-down')
         bot.send_message(sender, 'Rebuilding')
         topic = ''
@@ -350,11 +367,11 @@ def on_pm(bot, sender, message):
         time.sleep(1)
         bot.send_message(sender, 'Rebuilt')
         bot.set_nick(nick)
-    if message.lower().startswith('wmca') and cashortbot == 1:
+    if message.lower().startswith('wmca') and cashortbot == 1 or message.lower().startswith('!wmca') and cashortbot == 1:
         user = message.split(' ')
         user = user[1]
         bot.send_message(sender, sender + ': https://meta.wikimedia.org/wiki/Special:CentralAuth/' + user)
-    if message.lower().startswith('mhca') and cashortbot == 1:
+    if message.lower().startswith('mhca') and cashortbot == 1 or message.lower().startswith('!mhca') and cashortbot == 1:
         user = message.split(' ')
         user = user[1]
         bot.send_message(sender, sender + ': https://meta.miraheze.org/wiki/Special:CentralAuth/' + user)
