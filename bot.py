@@ -345,6 +345,17 @@ def on_pm(
                     newmess = newmess + ' ' + message1[on]
                 on = on + 1
             bot.send_message(sender, newmess)
+    if message.lower().startswith('!addquote') and sender in admins or message.lower().startswith('addquote') and sender in admins:
+        print('Got addquote command')
+        arg = message.split(' ')
+        quote = arg[1]
+        print('Opening quotes file')
+        file = open('quotes.csv', 'w+')
+        content = ''
+        content = str(quote)+','
+        file.write(content)
+        print('Quote added')
+        file.close()
     if message.lower() == 'getinfo' and sender in admins or message.lower() =="!getinfo" and sender in admins:
         bot.set_nick(nick + '-down')
         bot.send_message(sender, 'Rebuilding')
