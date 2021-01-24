@@ -9,13 +9,10 @@ nick = 'quirctest123'
 username = 'quirc'
 realname = 'realname'
 bot = QuIRC.IRCConnection()
+prequote = ''
 lastgreeter = ''
 greetings = [
-    "Hello {}!",
-    "Hi {}!",
-    "Hello there {}!",
-    "Hi there {}!",
-    "Hey {}!"]
+    "Hello {}!"]
 owapikey = '' #place an api key for open weather map here
 admins = ['freenode-staff', 'freenode-staff']
 
@@ -39,6 +36,7 @@ def getinfo():
     global username
     global realname
     global greetings
+    global prequote
     global greetingsbot
     global weatherbot
     global units
@@ -66,6 +64,8 @@ def getinfo():
             greetings = setting[1].split(',')
         if setting[0] == 'greetingsbot':
             greetingsbot = int(setting[1])
+        if setting[0] == 'prequote':
+            prequote = setting[1]
         if setting[0] == 'weatherbot':
             weatherbot = int(setting[1])
         if setting[0] == 'owapikey':
@@ -187,7 +187,7 @@ def on_message(
             pq = quotes[picked]
             print('Which is: ' + pq)
             bot.send_message(channel, 'Todays quote is: ' + str(pq))
-            bot.send_message('ChanServ', 'topic ' + channel + ' ' + topic + ' | Quote of the day: ' + pq)
+            bot.send_message('ChanServ', 'topic ' + channel + ' ' + topic + ' | ' + prequote + pq)
             print('Announced it')
     if buttbot == 1:
         message1 = message.lower()

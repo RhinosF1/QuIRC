@@ -4,6 +4,7 @@ realname;realname;
 nspassword;password;
 topic;channeltopics;
 greetings;hello {}!,Hi {}!,Hello there {}!, Hi there {}!,Hey {};
+prequote;Quote of the day:;
 greetingsbot;1;
 weatherbot;0;
 owapikey;;
